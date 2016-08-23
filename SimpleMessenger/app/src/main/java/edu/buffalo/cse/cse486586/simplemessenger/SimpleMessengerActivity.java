@@ -34,7 +34,7 @@ import android.widget.TextView;
  * Please also take look at how this Activity is declared as the main Activity in
  * AndroidManifest.xml file in the root of the project directory (that is, using an intent filter).
  * 
- * 
+ * @author stevko
  *
  */
 public class SimpleMessengerActivity extends Activity {
@@ -146,7 +146,7 @@ public class SimpleMessengerActivity extends Activity {
      * Please make sure you understand how AsyncTask works by reading
      * http://developer.android.com/reference/android/os/AsyncTask.html
      * 
-     * 
+     * @author stevko
      *
      */
     private class ServerTask extends AsyncTask<ServerSocket, String, Void> {
@@ -156,10 +156,10 @@ public class SimpleMessengerActivity extends Activity {
             ServerSocket serverSocket = sockets[0];
             
             /*
-             * Server code that receives messages and passes them
+             * TODO: Fill in your server code that receives messages and passes them
              * to onProgressUpdate().
              */
-            
+
             try{
                 while(true){
                     Socket server = serverSocket.accept();
@@ -211,35 +211,35 @@ public class SimpleMessengerActivity extends Activity {
      * It is created by ClientTask.executeOnExecutor() call whenever OnKeyListener.onKey() detects
      * an enter key press event.
      * 
-     * 
+     * @author stevko
      *
      */
     private class ClientTask extends AsyncTask<String, Void, Void> {
 
-        @Override
-        protected Void doInBackground(String... msgs) {
-            try {
-                String remotePort = REMOTE_PORT0;
-                if (msgs[1].equals(REMOTE_PORT0))
-                    remotePort = REMOTE_PORT1;
+            @Override
+            protected Void doInBackground(String... msgs) {
+                try {
+                    String remotePort = REMOTE_PORT0;
+                    if (msgs[1].equals(REMOTE_PORT0))
+                        remotePort = REMOTE_PORT1;
 
-                Socket socket = new Socket(InetAddress.getByAddress(new byte[]{10, 0, 2, 2}),
-                        Integer.parseInt(remotePort));
-                
-                String msgToSend = msgs[0];
+                    Socket socket = new Socket(InetAddress.getByAddress(new byte[]{10, 0, 2, 2}),
+                            Integer.parseInt(remotePort));
+
+                    String msgToSend = msgs[0];
                 /*
-                 * client code that sends out a message.
+                 * TODO: Fill in your client code that sends out a message.
                  */
-                PrintWriter output = new PrintWriter(socket.getOutputStream(),true);
-                output.println(msgToSend);
-                socket.close();
-            } catch (UnknownHostException e) {
-                Log.e(TAG, "ClientTask UnknownHostException");
-            } catch (IOException e) {
-                Log.e(TAG, "ClientTask socket IOException");
-            }
+                    PrintWriter output = new PrintWriter(socket.getOutputStream(),true);
+                    output.println(msgToSend);
+                    socket.close();
+                } catch (UnknownHostException e) {
+                    Log.e(TAG, "ClientTask UnknownHostException");
+                } catch (IOException e) {
+                    Log.e(TAG, "ClientTask socket IOException");
+                }
 
-            return null;
-        }
+                return null;
+            }
     }
 }
